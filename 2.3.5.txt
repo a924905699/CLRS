@@ -1,0 +1,25 @@
+class BinarySearch{
+    int Binary_Search(int[]A,int key){
+        int high=A.length-1;
+        int low=0;
+        while (low<=high){
+            int mid=(high+low)/2;
+            if (A[mid]==key)
+                return mid;
+            else if (A[mid]<key){
+                low=mid+1;
+            }
+            else
+                high=mid-1;
+            }
+            return -1;
+        }
+
+    }
+public class test {
+    public static void main(String[] args) {
+        int []arraytest=new int[]{1,2,3,4,5,6,7};
+        BinarySearch binarySearch=new BinarySearch();
+        System.out.println(binarySearch.Binary_Search(arraytest,6));
+    }
+}

@@ -1,0 +1,43 @@
+class ReverseAlignment {
+    int Reverse_Alighment(int[] A, int p, int q, int r) {
+        int i, j, k, inversions = 0;
+        int n1 = q - p + 1;
+        int n2 = r - q;        int L1[] = new int[n1];
+        int L2[] = new int[n2];
+        for (i = 0; i < n1; i++) L1[i] = A[p + i];
+        for (j = 0; j < n2; j++) L2[j] = A[q + j + 1];
+        for (i = 0, j = 0, k = p; k <= r; k++) {
+            if (i == n1)
+                A[k] = L2[j++];
+            else if (j == n2)
+                A[k] = L1[i++];
+            else if (L1[i] <= L2[j])
+                A[k] = L1[i++];
+            else {
+                A[k] = L2[j++];
+                inversions = n1 - i;
+            }
+        }
+        return inversions;
+    }
+
+    int Reverse_Alighment_sort(int[] A, int p, int r) {
+        if (p < r) {
+            int inversions = 0;
+            int q = (p + r) / 2;
+            inversions += Reverse_Alighment_sort(A, p, q);
+            inversions += Reverse_Alighment_sort(A, q + 1, r);
+            inversions += Reverse_Alighment(A, p, q, r);
+            return inversions;
+        }else {
+            return 0;
+        }
+    }
+}
+public class test {
+    public static void main(String[] args) {
+        int[] arraytest =new int[]{1,4,3,6,7,8,9,2,11};
+        ReverseAlignment reverseAlignment =new ReverseAlignment();
+        System.out.println(reverseAlignment.Reverse_Alighment_sort(arraytest,0,arraytest.length-1));
+    }
+}
